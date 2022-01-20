@@ -19,7 +19,7 @@ export default function Home({api}) {
     <AppProvider i18n={enTranslations}>
       <Page title="Mars Curiosity Rover">
         <Card sectioned>
-          <Button onClick={() => alert("Button clicked!")}>
+          <Button onClick={() => alert("App is in the making!")}>
             <motion.img src={roverImage} />
           </Button>
         </Card>
