@@ -35,3 +35,7 @@
 .row > img {
   margin-right: 15px;
 }
+
+.button img {
+  width: 100%;
+}

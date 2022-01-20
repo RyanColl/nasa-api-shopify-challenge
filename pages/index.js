@@ -1,18 +1,26 @@
 
-import * as React from 'react'
+import React from 'react'
 import { Button } from 'semantic-ui-react'
 import enTranslations from '@shopify/polaris/locales/en.json';
 import {AppProvider, Page, Card} from '@shopify/polaris';
-const baseUrl = 'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?'
-export default function Home({uri}) {
+import {UrlServices} from '../services/url.services'
+import {motion} from 'framer-motion'
+const roverImage = 'https://scx2.b-cdn.net/gfx/news/hires/2017/nextmarsrove.jpg'
+export default function Home({api}) {
   const [open, setOpen] = React.useState(false);
-  console.log(uri)
+  const uriServices = new UrlServices(api)
+  React.useEffect(() => {
+      uriServices.SearchManifest().then(res=>res.json()).then(data => {
+          console.log(data)
+      })
+  })
+  console.log(api)
   return (
     <AppProvider i18n={enTranslations}>
-      <Page title="Example app">
+      <Page title="Mars Curiosity Rover">
         <Card sectioned>
           <Button onClick={() => alert("Button clicked!")}>
-            Example button
+            <motion.img src={roverImage} />
           </Button>
         </Card>
       </Page>
@@ -20,24 +28,14 @@ export default function Home({uri}) {
   );
 }
 
+// APP ideas -> 
+// Using a semantic and polaris theme switch -> change in vibe
+// Using a range of filters that allow for different search types.
+// All of that would get put through a class, and depending on what 
+// type of query was requested, we make a new search
+
+
 Home.getInitialProps = async (ctx) => {
-    console.log(ctx)
     let api_key = process.env.NASA_API_KEY;
-    let api_string = `&api_key=${api_key}`;
-    let sol = 1;
-    let sol_string = `sol=${sol}`;
-    let page = 1;
-    // Camera uses abbreviation for the type fo camera
-    // FHAZ -> Front Hazard Avoidance Camera
-    // RHAZ -> Rear Hazard Avoidance Camera
-    // MAST -> Mast Camera
-    // CHEMCAM -> Chemistry and Camera Complex
-    // MAHLI -> Mars Hand Lens Imager
-    // MARDI -> Mars Descent Imager
-    // NAVCAM -> Navigation Camera
-    let camera = ''
-    let cam_string = `&camera=`
-    let page_string = `&page=${page}`;
-    let uri = `${baseUrl}${sol_string}${api_string}`;
-    return { uri  }
+    return { api: api_key }
 }
