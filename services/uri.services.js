@@ -28,12 +28,12 @@ export class UrlServices {
         if(!camera.length) return;
     }
 
-    SearchByEarthDate() {
-
+    SearchByEarthDate = async (date = '2015-6-3') => {
+        await fetchAPI(this.AddApiToString(`${this.baseUrl}earth_date=${date}`))
     }
 
     SearchManifest = async () => 
         await fetchAPI(this.manifestUrl)
 
-    AddApiToString = (string) => `${string}&api_key=${this.api_key}`
+    AddApiToString = (string) => `${string}&api_key=${this.api_key}`;
 }

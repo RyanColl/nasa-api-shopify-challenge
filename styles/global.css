@@ -36,6 +36,24 @@
   margin-right: 15px;
 }
 
-.button img {
+.button {
+  position: relative;
+}
+.rover-img {
   width: 100%;
+}
+.rover-popup {
+  width: 96%;
+  position: absolute;
+  z-index: 10;
+  top: 5%;
+  left: 2%;
+  height: 90%;
+  background-color: white;
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.1), -2px -2px 4px rgba(0,0,0,0.1);
+}
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
